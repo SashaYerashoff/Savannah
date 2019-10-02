@@ -6,18 +6,16 @@ namespace Savannah
 {
     public class Prey : IAnimal
     {
-        //char Avatar = 'A';
-        char Evil = 'L';
-
         public int[] Position { get; set; }
         public int Health { get; set ; }
         public int Speed { get; set; }
         public int FieldOfView { get; set; }
         public char Avatar { get; set; }
 
-        public void Die(int[] currentPosition)
+        public char[,] Die(char[,] gameField, int[] currentPosition)
         {
-            throw new NotImplementedException();
+            //Field.RemoveAnimal(gameField, currentPosition);
+            return gameField;
         }
 
         public char[,] Move(char[,] gameField, int[] currentPosition, char avatar)
@@ -26,14 +24,13 @@ namespace Savannah
             return gameField;
         }
 
-        public void NewAnimal(int[] position, char avatar)
+        public void GiveBirth(int[] position, char avatar)
         {
-            Random rand = new Random();
             Position[0] = position[0];
             Position[1] = position[1];
             Health = 100;
             FieldOfView = 3;
-            Avatar = avatar;
+            Avatar = 'A';
         }
 
         public int[] WatchAround(char[,] gameField)

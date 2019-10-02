@@ -1,18 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Savannah
 {
     public class Field
     {
-        int[] dimensions = new int[2];
+        public int[] dimensions = new int[2];
+        public char[,] GameField { get; set; }
 
         public void CreateField(int height, int width)
         {
             char[,] gameField = new char[height, width];
             dimensions[0] = height;
             dimensions[1] = width;
+            GameField = gameField;
         }
 
         public void AddAnimal (char[,] gameField, int[] position, char avatar)

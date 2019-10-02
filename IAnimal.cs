@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace Savannah
 {
     public interface IAnimal
@@ -11,11 +8,11 @@ namespace Savannah
         int Speed { get; set; }
         char Avatar { get; set; }
         int FieldOfView { get; set; }
-        //surroundings<T> Animals { get; set }
+        
 
-        void NewAnimal(int[] position, char avatar);
+        void GiveBirth(int[] position, char avatar);
         int[] WatchAround(char[,] gameField);
-        int[] Move(int[] currentPosition, char Avatar);
-        void Die(int[] currentPosition);
+        char[,] Move(char[,] gameField, int[] currentPosition, char avatar);
+        char[,] Die(char[,] gameField, int[] currentPosition);
     }
 }
