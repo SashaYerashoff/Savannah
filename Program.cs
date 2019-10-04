@@ -26,7 +26,7 @@ namespace Savannah
                     {
                         Random random = new Random();
                         int[] animalPos = new int[] { random.Next(fieldHeight), random.Next(fieldWidth) };
-                        Prey antilope = new Prey(animalPos, 100, 1, 5, 'A');
+                        Prey antilope = new Prey(animalPos, 100, 1, 10, 'A');
                         
                         game.AddAnimal(antilope.Position, antilope);
                     }
@@ -34,7 +34,7 @@ namespace Savannah
                     {
                         Random random = new Random();
                         int[] animalPos = new int[] { random.Next(fieldHeight), random.Next(fieldWidth) };
-                        Predator lion = new Predator(animalPos, 100, 1, 5, 'L');
+                        Predator lion = new Predator(animalPos, 100, 1, 10, 'L');
                         
                         game.AddAnimal(lion.Position, lion);
                     }
@@ -45,8 +45,8 @@ namespace Savannah
                 }
                 game.DrawField();
 
-                //Think think = new Think();
-                //think.WatchAround(game.GameField, antilope.Position);
+                Think think = new Think();
+                think.WatchAround(game.GameField);
                 //think.SortByDistance();
 
 

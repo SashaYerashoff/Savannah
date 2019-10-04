@@ -5,54 +5,52 @@ namespace Savannah
 {
     public class Think
     {
-        protected int fieldOfView = 9;
+        //protected int fieldOfView = 9;
 
-        public List<TempAnimal> TheLions = new List<TempAnimal>();
-        public List<TempAnimal> TheAntilopes = new List<TempAnimal>();
+        public List<TempAnimal> Predators = new List<TempAnimal>();
+        public List<TempAnimal> Preys = new List<TempAnimal>();
 
         public TempAnimal TempLion;
 
 
-        public void WatchAround(char[,] gameField, int[] myPostion)
+        public void WatchAround(IAnimal[,] gameField)
         {
-            int height = myPostion[0];
-            int width = myPostion[1];
+
             int rowLimit = gameField.GetLength(0);
             int columnLimit = gameField.GetLength(1);
-            int FoV = fieldOfView;
 
-            if (height-fieldOfView < 0)
+            foreach (IAnimal animal in gameField)
             {
-                FoV = Math.Abs(height - fieldOfView);
-                height = 0; 
-            }
-
-            if (width - fieldOfView < 0)
-            {
-                FoV = Math.Abs(width - fieldOfView);
-                width = 0;
-            }
-
-            for (int heightPos = height; heightPos + FoV < rowLimit; heightPos++)
-            {
-                for (int widthPos = width; widthPos + FoV < columnLimit; widthPos++)
+                if (animal != null)
                 {
-                    if (!(heightPos < 0 ||
-                          widthPos  < 0 ||
-                          heightPos > rowLimit ||
-                          widthPos  > columnLimit))
+                    int FOV = animal.FieldOfView;
+                    int myHeight = animal.Position[0];
+                    int myWidth = animal.Position[1];
+
+                    for (int heightPos = myHeight - FOV; heightPos + FOV < rowLimit; heightPos++)
                     {
-                        if (gameField[heightPos, widthPos] == 'L')
+                        for (int widthPos = myWidth - FOV; widthPos + FOV < columnLimit; widthPos++)
                         {
-                            TempAnimal lion = new TempAnimal(heightPos, widthPos);
-                            //TheLions.Add(lion);
-                            TheLions.Add(FindDistance(lion, myPostion));
-                            Console.WriteLine("lion position is: " + lion.heightPos + " " + lion.widthPos);
+                            if (!(heightPos < 0 || widthPos < 0) &&
+                                  gameField[heightPos, widthPos] != null)
+                            {
+                                if (gameField[heightPos, widthPos].Avatar == 'L')
+                                {
+                                    TempAnimal lion = new TempAnimal(heightPos, widthPos);
+                                    
+                                    int[] myPosition = new int[] { myHeight, myWidth };
+                                    Predators.Add(FindDistance(lion, myPosition));
+                                    Console.WriteLine($"lion position is: {lion.heightPos} {lion.widthPos} distance from {myPosition[0]} {myPosition[1]} is {lion.Distance}");
+                                }
+                            }
                         }
                     }
                 }
             }
-            
+
+
+
+
         }
 
         public TempAnimal FindDistance(TempAnimal lion, int[] myPosition)
@@ -60,34 +58,25 @@ namespace Savannah
             int DistanceHeight = Math.Abs(myPosition[0] - lion.heightPos);
             int DistanceWidth = Math.Abs(myPosition[1] - lion.widthPos);
 
-            if (DistanceHeight < DistanceWidth)
-            {
-                lion.Distance = DistanceHeight;
-            }
-            else
-            {
-                lion.Distance = DistanceWidth;
-            };
+            int shortestWay = (int)Math.Round( Math.Sqrt(DistanceHeight * DistanceHeight + DistanceWidth * DistanceWidth));
+            lion.Distance = shortestWay;
             return lion;
         }
 
         public void SortByDistance()
         {
             TempAnimal tempLion;
-            int lionCount = TheLions.Count;
+            int lionCount = Predators.Count;
+
             for (int j = 0; j < lionCount - 2; j++)
             {
                 for (int i = 0; i < lionCount - 2; i++)
                 {
-                    //if (theLions[i] == null)
-                    //{
-                    //    return theLions;
-                    //}
-                    if (TheLions[i].Distance > TheLions[i + 1].Distance)
+                    if (Predators[i].Distance > Predators[i + 1].Distance)
                     {
-                        tempLion = TheLions[i + 1];
-                        TheLions[i + 1] = TheLions[i];
-                        TheLions[i] = tempLion;
+                        tempLion = Predators[i + 1];
+                        Predators[i + 1] = Predators[i];
+                        Predators[i] = tempLion;
                     }
                 }
             }
@@ -97,7 +86,7 @@ namespace Savannah
         public int[] findNextMove(int[] myPosition, int speed, char[,] field)
         {
             int[] nextPosition = new int[2];
-            TempLion = TheLions[0];
+            TempLion = Predators[0];
             int hPos = TempLion.heightPos;
             int wPos = TempLion.widthPos;
 
