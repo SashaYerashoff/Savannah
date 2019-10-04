@@ -5,37 +5,47 @@ namespace Savannah
     public class Field
     {
         public int[] dimensions = new int[2];
-        public char[,] GameField { get; set; }
+        public IAnimal[,] GameField { get; set; }
 
         public void CreateField(int height, int width)
         {
-            char[,] gameField = new char[height, width];
+            IAnimal[,] gameField = new IAnimal[height, width];
             dimensions[0] = height;
             dimensions[1] = width;
             GameField = gameField;
         }
 
-        public void AddAnimal (char[,] gameField, int[] position, char avatar)
+        public void AddAnimal(int[] position, IAnimal animal)
         {
-            gameField[position[0], position[1]] = avatar;
+            GameField[position[0], position[1]] = animal;
         }
 
-        public void RemoveAnimal (char[,] gameField, int[] position)
+        public void RemoveAnimal(IAnimal[,] gameField, int[] position)
         {
-            char emptyPosition = ' ';
-            gameField[position[0], position[1]] = emptyPosition;
+            //char emptyPosition = ' ';
+            gameField[position[0], position[1]] = null;
         }
 
-        public void DrawField(char[,] gamefield)
+        public void DrawField()
         {
-            for (int height = 0; height < gamefield.GetLength(0); height++)
+            Console.SetCursorPosition(0, 0);
+            Console.CursorVisible = false;
+            for (int height = 0; height < GameField.GetLength(0); height++)
             {
-                for (int width = 0; width < gamefield.GetLength(1); width++)
+                for (int width = 0; width < GameField.GetLength(1); width++)
                 {
-                    Console.Write(gamefield[height, width]);
+                    if (GameField[height, width] == null)
+                    {
+                        Console.Write("  ");
+                    }
+                    else
+                    {
+                        Console.Write(GameField[height, width].Avatar + " ");
+                    }
                 }
                 Console.WriteLine();
             }
+
         }
     }
 }

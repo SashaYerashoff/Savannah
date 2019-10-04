@@ -12,6 +12,14 @@ namespace Savannah
         public int FieldOfView { get; set; }
         public char Avatar { get; set; }
 
+        public Prey(int[] position, int health, int speed, int fieldOfView, char avatar)
+        {
+            Position = position;
+            Health = health;
+            Speed = speed;
+            FieldOfView = fieldOfView;
+            Avatar = avatar;
+        }
         public char[,] Die(char[,] gameField, int[] currentPosition)
         {
             //Field.RemoveAnimal(gameField, currentPosition);
@@ -24,7 +32,7 @@ namespace Savannah
             return gameField;
         }
 
-        public void GiveBirth(int[] position, char avatar)
+        public void GiveBirth(int[] position)
         {
             Position[0] = position[0];
             Position[1] = position[1];

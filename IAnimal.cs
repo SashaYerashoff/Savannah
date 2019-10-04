@@ -10,7 +10,7 @@ namespace Savannah
         int FieldOfView { get; set; }
         
 
-        void GiveBirth(int[] position, char avatar);
+        void GiveBirth(int[] position);
         int[] WatchAround(char[,] gameField);
         char[,] Move(char[,] gameField, int[] currentPosition, char avatar);
         char[,] Die(char[,] gameField, int[] currentPosition);
