@@ -8,11 +8,6 @@ namespace Savannah
         int Speed { get; set; }
         char Avatar { get; set; }
         int FieldOfView { get; set; }
-        
-
-        void GiveBirth(int[] position);
-        int[] WatchAround(char[,] gameField);
-        char[,] Move(char[,] gameField, int[] currentPosition, char avatar);
-        char[,] Die(char[,] gameField, int[] currentPosition);
+        //char Distance { get; set; }
     }
 }
