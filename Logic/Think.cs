@@ -36,7 +36,7 @@ namespace Savannah
                                 {
                                     TempAnimal predator = new TempAnimal(heightPos, widthPos);
                                     int[] myPosition = new int[] { myHeight, myWidth };
-                                    Predators.Add(FindDistance(predator, myPosition));
+                                    Predators.Add(ClosestNeighbour(predator, myPosition));
                                     SortByDistance();
                                     Logic.FindNextMove findMove = new Logic.FindNextMove();
                                     findMove.findNextMove(gameField, animal, Predators);
@@ -45,7 +45,7 @@ namespace Savannah
                                 {
                                     TempAnimal prey = new TempAnimal(heightPos, widthPos);
                                     int[] myPosition = new int[] { myHeight, myWidth };
-                                    Preys.Add(FindDistance(prey, myPosition));
+                                    Preys.Add(ClosestNeighbour(prey, myPosition));
                                     SortByDistance();
                                 }
                             }
@@ -55,7 +55,7 @@ namespace Savannah
             }
         }
 
-        public TempAnimal FindDistance(TempAnimal animal, int[] myPosition)
+        public TempAnimal ClosestNeighbour(TempAnimal animal, int[] myPosition)
         {
             int DistanceHeight = Math.Abs(myPosition[0] - animal.heightPos);
             int DistanceWidth = Math.Abs(myPosition[1] - animal.widthPos);
