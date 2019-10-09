@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+
 
 namespace Savannah.Logic
 {
     public class FindNextMove
     {
-        public void findNextMove(IAnimal[,] field, IAnimal animal, List <TempAnimal> AnimalsAround)
+        public void findNextMove(IAnimal[,] field, IAnimal animal, List<TempAnimal> AnimalsAround)
         {
             int[] nextPosition = new int[2];
             int[] myPosition = animal.Position;
@@ -24,12 +24,15 @@ namespace Savannah.Logic
                 nextPosition[1] = ApproachAnimal(wPos, myPosition[1], field.GetLength(1), animal.Speed);
             }
 
-            Field moveAnimal = new Field();
-            
-            moveAnimal.RemoveAnimal(animal);
-            animal.Position = nextPosition;
-            moveAnimal.AddAnimal(animal);
-            
+           
+            AddAnimal(animal, field);
+
+        }
+        public void AddAnimal(IAnimal animal, IAnimal[,] field)
+        {
+            byte height = Convert.ToByte(animal.Position[0]);
+            byte width = Convert.ToByte(animal.Position[1]);
+            field[height, width] = animal;
         }
 
         public int AvoidAnimal(int AnimalPos, int myPos, int fieldMax, int speed)

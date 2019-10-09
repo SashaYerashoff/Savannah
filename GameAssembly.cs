@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Savannah.Logic;
 using Savannah.Render;
 
 namespace Savannah
@@ -33,6 +34,7 @@ namespace Savannah
                             new Prey(animalPos, Constants.Health, Constants.PreySpeed, Constants.PreyFOV,'A');
 
                         game.AddAnimal(antilope);
+                        //continue;
                     }
                     if (key == ConsoleKey.L)
                     {
@@ -44,20 +46,24 @@ namespace Savannah
                             new Predator(animalPos, Constants.Health, Constants.LionSpeed, Constants.LionFOV, 'L');
 
                         game.AddAnimal(lion);
+                        //continue;
                     }
                     if (key == ConsoleKey.Escape)
                     {
                         exit = true;
+                        //continue;
                     }
                 }
+                Surroundings getSurroundings = new Surroundings();
+                getSurroundings.AnalizeField(game.GameField);
 
                 render.DrawField(game.GameField);
 
-                Think think = new Think();
-                think.WatchAround(game.GameField);
-                think.SortByDistance();
+                //Think think = new Think();
+                //think.WatchAround(game.GameField);
+                //think.SortByDistance();
 
-                Thread.Sleep(100);
+                Thread.Sleep(1000/24);
             }
         }
     }

@@ -21,7 +21,7 @@ namespace Savannah
             {
                 if (animal != null)
                 {
-                    animal.Health -= 5;
+                    
                     int FOV = animal.FieldOfView;
                     int myHeight = animal.Position[0];
                     int myWidth = animal.Position[1];
@@ -42,7 +42,7 @@ namespace Savannah
                                     Logic.FindNextMove findMove = new Logic.FindNextMove();
                                     findMove.findNextMove(gameField, animal, Predators);
                                 }
-                                if (gameField[heightPos-1, widthPos-1] is Prey)
+                                if (gameField[heightPos, widthPos] is Prey)
                                 {
                                     TempAnimal prey = new TempAnimal(heightPos, widthPos);
                                     int[] myPosition = new int[] { myHeight, myWidth };

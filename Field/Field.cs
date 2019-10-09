@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Savannah
 {
-    public class Field
+    public class Field//rename
     {
         public IAnimal[,] GameField { get; set; }
 
